@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker
+    </title>
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <div id="initialSet">
+        <h1>Expense/Budget Tracker</h1>
+        <label for="totalIncome">Please provide your monthly income:</label>
+        <input type="number" id="totalIncome">
+        <button id="setTotal">Submit</button>
+    </div>
+    <div id="budgetDetails">
+        <div>
+            <h2>Your <a
+                    href="https://www.investopedia.com/ask/answers/022916/what-502030-budget-rule.asp#:~:text=The%20rule%20is%20to%20split,to%20meet%20your%20financial%20goals.">ideal
+                    budget</a> is:</h2>
+            <label for="billBudget">Bills (50%)
+            </label>
+            <input type="number" id="billBudget">
+            <label for="funBudget">Fun (30%)
+            </label>
+            <input type="number" id="funBudget">
+            <label for="savingsBudget">Savings (20%)
+            </label>
+            <input type="number" id="savingsBudget">
+        </div>
+        <br>
+        <div class="container" id="expenseSection">
+            <h2>Let's see how the numbers add up</h2>
+            <h3>List all monthly expenses below</h3>
+            <h4>We'll update your budget to show how much $ is left in each category once you're finished. If any money
+                is left over, we'll add it to savings by default.</h4>
+        </div>
+        <div class="expense-input">
+            <div>
+                <label for="expenseName">Name:</label>
+                <input type="text" id="expenseName">
+                <label for="expenseAmount">Amount ($):</label>
+                <input type="number" id="expenseAmount">
+                <label for="expenseType">Type of Expense:</label>
+                <select name="expenseType" id="expenseType">
+                    <option value="bills">Bills</option>
+                    <option value="fun">Fun</option>
+                    <option value="savings">Savings</option>
+                </select>
+            </div>
+            <button onclick="submitExpense()">Submit</button>
+        </div>
+        <div class="expensesList" id="expensesList"></div>
+        <button onclick="actualBudgetBreakdown()">Calculate my current budget breakdown</button>
+    </div>
+    <div id="actualBudgetSection">
+        <h2>Your current <i>actual</i> budget is:</h2>
+        <label for="billBudgetActual">Bills (50%)
+        </label>
+        <input type="number" id="billBudgetActual" readonly>
+        <label for="funBudgetActual">Fun (30%)
+        </label>
+        <input type="number" id="funBudgetActual" readonly>
+        <label for="savingsBudgetActual">Savings (20%)
+        </label>
+        <input type="number" id="savingsBudgetActual" readonly>
+        <button id="goBackButton" onclick="goBack()">Go Back</button>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
