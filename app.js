@@ -43,7 +43,7 @@ function submitExpense() {
     // Clear input fields for reuse
     document.getElementById('expenseName').value = '';
     document.getElementById('expenseAmount').value = '';
-    document.getElementById('expenseType').value = 'bills';
+    document.getElementById('expenseType').value = 'Bills';
 
     // Render the updated expenses list
     renderExpensesList();
@@ -60,12 +60,13 @@ function renderExpensesList() {
     expenses.forEach((expense, index) => {
         const expenseDiv = document.createElement('div');
         expenseDiv.innerHTML = `
-            <p>Name: <span id="name-${index}">${expense.name}</span></p>
-            <p>Amount: $<span id="amount-${index}">${expense.amount}</span></p>
-            <p>Type: <span id="type-${index}">${expense.type}</span></p>
-            <button id="edit-button-${index}" onclick="editExpense(${index})">Edit</button>
-            <button onclick="deleteExpense(${index})">Delete</button>
-            <hr>
+            <div class="expenseProvided">
+            <p class="inputBillName"><span id="name-${index}">${expense.name}</span></p>
+            <p class="inputBillAmount">$<span id="amount-${index}">${expense.amount}</span></p>
+            <p class="inputBillType"><span id="type-${index}">${expense.type}</span></p>
+            <button class="inputBillEdit" id="edit-button-${index}" onclick="editExpense(${index})">Edit</button>
+            <button class="inputBillDelete" onclick="deleteExpense(${index})">Delete</button>
+            </div>
         `;
         expensesListDiv.appendChild(expenseDiv);
     });
@@ -76,22 +77,22 @@ function editExpense(index) {
     const expense = expenses[index];
 
     // Create input fields for the current set values
-    const nameField = `<input type="text" id="edit-name-${index}" value="${expense.name}">`;
-    const amountField = `<input type="number" id="edit-amount-${index}" value="${expense.amount}">`;
+    const nameField = `<input class="editBillName" type="text" id="edit-name-${index}" value="${expense.name}">`;
+    const amountField = `<input class="editBillAmount" type="number" id="edit-amount-${index}" value="${expense.amount}">`;
     const typeField = `
-        <select id="edit-type-${index}">
-            <option value="bills" ${expense.type === 'bills' ? 'selected' : ''}>Bills</option>
-            <option value="fun" ${expense.type === 'fun' ? 'selected' : ''}>Fun</option>
-            <option value="savings" ${expense.type === 'savings' ? 'selected' : ''}>Savings</option>
+        <select class="editBillType" id="edit-type-${index}">
+            <option value="Bills" ${expense.type === 'Bills' ? 'selected' : ''}>Bills</option>
+            <option value="Fun" ${expense.type === 'Fun' ? 'selected' : ''}>Fun</option>
+            <option value="Savings" ${expense.type === 'Savings' ? 'selected' : ''}>Savings</option>
         </select>
     `;
 
     // Replace the current values with input fields
-    document.getElementById(`name-${index}`).parentElement.innerHTML = `Name: ${nameField}`;
-    document.getElementById(`amount-${index}`).parentElement.innerHTML = `Amount: $${amountField}`;
-    document.getElementById(`type-${index}`).parentElement.innerHTML = `Type: ${typeField}`;
+    document.getElementById(`name-${index}`).parentElement.innerHTML = `${nameField}`;
+    document.getElementById(`amount-${index}`).parentElement.innerHTML = `${amountField}`;
+    document.getElementById(`type-${index}`).parentElement.innerHTML = `${typeField}`;
 
-    // Update the Edit button to a Save button once an input has changed
+    // Update the Edit button to a Save button
     const editButton = document.getElementById(`edit-button-${index}`);
     editButton.innerText = 'Save';
     editButton.onclick = function () { saveExpense(index); };
@@ -133,11 +134,11 @@ function actualBudgetBreakdown() {
 
     // Calculate total expenses for each type of expense
     expenses.forEach(expense => {
-        if (expense.type === 'bills') {
+        if (expense.type === 'Bills') {
             totalBills += parseFloat(expense.amount);
-        } else if (expense.type === 'fun') {
+        } else if (expense.type === 'Fun') {
             totalFun += parseFloat(expense.amount);
-        } else if (expense.type === 'savings') {
+        } else if (expense.type === 'Savings') {
             totalSavings += parseFloat(expense.amount);
         }
     });
@@ -154,18 +155,18 @@ function actualBudgetBreakdown() {
     document.getElementById('savingsBudgetActual').value = totalSavings.toFixed(2);
 
     // Update percentages for each segment
-    document.querySelector('label[for="billBudgetActual"]').innerText = `Bills (${((totalBills / totalIncome) * 100).toFixed(2)}%)`;
-    document.querySelector('label[for="funBudgetActual"]').innerText = `Fun (${((totalFun / totalIncome) * 100).toFixed(2)}%)`;
-    document.querySelector('label[for="savingsBudgetActual"]').innerText = `Savings (${((totalSavings / totalIncome) * 100).toFixed(2)}%)`;
+    document.querySelector('label[for="billBudgetActual"]').innerText = `Bills (${((totalBills / totalIncome) * 100).toFixed(0)}%)`;
+    document.querySelector('label[for="funBudgetActual"]').innerText = `Fun (${((totalFun / totalIncome) * 100).toFixed(0)}%)`;
+    document.querySelector('label[for="savingsBudgetActual"]').innerText = `Savings (${((totalSavings / totalIncome) * 100).toFixed(0)}%)`;
 
     // Show the actual budget section and hide the expense input section
     document.getElementById('actualBudgetSection').style.display = 'block';
-    document.getElementById('budgetDetails').style.display = 'none';
+    document.getElementById('expenseSection').style.display = 'none';
 }
 
 // Function to go back to the previous menu
 function goBack() {
     // Show the expense input section and hide the actual budget section
-    document.getElementById('budgetDetails').style.display = 'block';
+    document.getElementById('expenseSection').style.display = 'block';
     document.getElementById('actualBudgetSection').style.display = 'none';
 }
