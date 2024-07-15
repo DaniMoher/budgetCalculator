@@ -155,9 +155,9 @@ function actualBudgetBreakdown() {
     document.getElementById('savingsBudgetActual').value = totalSavings.toFixed(2);
 
     // Update percentages for each segment
-    document.querySelector('label[for="billBudgetActual"]').innerText = `Bills (${((totalBills / totalIncome) * 100).toFixed(0)}%)`;
-    document.querySelector('label[for="funBudgetActual"]').innerText = `Fun (${((totalFun / totalIncome) * 100).toFixed(0)}%)`;
-    document.querySelector('label[for="savingsBudgetActual"]').innerText = `Savings (${((totalSavings / totalIncome) * 100).toFixed(0)}%)`;
+    document.querySelector('label[for="billBudgetActual"]').innerText = `Bills (${((totalBills / totalIncome) * 100).toFixed(0)}%):`;
+    document.querySelector('label[for="funBudgetActual"]').innerText = `Fun (${((totalFun / totalIncome) * 100).toFixed(0)}%):`;
+    document.querySelector('label[for="savingsBudgetActual"]').innerText = `Savings (${((totalSavings / totalIncome) * 100).toFixed(0)}%):`;
 
     // Show the actual budget section and hide the expense input section
     document.getElementById('actualBudgetSection').style.display = 'block';
